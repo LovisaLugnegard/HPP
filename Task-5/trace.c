@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+
+//Not very good version.. see Task_5new for better version
 double** initialization(int);
 void fill_vectors(double*, int);
 void print_matrix(double** , int);

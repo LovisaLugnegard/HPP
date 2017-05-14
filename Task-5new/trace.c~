@@ -10,21 +10,18 @@ double trace (double** , int);
 // The main program.
 int main()
 {
-  int i, n;
+  int i, j, n;
   double **matrix;
-  double* sum;
+  double *sum;
   sum = malloc(sizeof(double));
   printf("\nEnter the Dimension for a square matrix:");
   scanf("%d",&n);
   matrix = initialization(n);
-
   for(i = 1 ; i < n ; i++)
-  	fill_vectors(matrix[i] , n);
-
-  *sum = trace(matrix, n);
+  fill_vectors(matrix[i] , n);
+  *sum = trace(matrix , n);
   print_matrix(matrix , n);
   printf("\n Sum of the diagonal elements are: %2.3f", *sum);
-
   return 0;
 }
 
@@ -34,19 +31,13 @@ int main()
 double** initialization(int n)
 
 {
-  printf("\nIn initialization");
-  double **array;
   int i;
-  	array = malloc(n * sizeof(double *));
-
-	for(i = 0; i < n; i++)
-		{
-		array[i] = malloc(n * sizeof(double));
-
-		}
-		return array;
-  
-} 
+  double** matrix ;
+  matrix = calloc(n , sizeof(double **));
+  for(i=0 ; i< n ; ++i)
+    matrix[i] = calloc(n , sizeof(double*));
+  return (matrix);
+}
 
 // The fill_vector routine is supposed to fill a given vector with
 // random numbers ranging from -10 to 10.
@@ -66,7 +57,7 @@ void print_matrix(double** matrix , int n)
   for (i= 0 ; i< n ; i++)
     {
     for(j = 0 ; j < n ; j++)
-      printf("%2.3f " , matrix[i][j]);
+      printf("%2.3g " , matrix[i][j]);
     putchar('\n');
     }
 }
@@ -77,8 +68,7 @@ double trace (double** matrix , int n)
 {
   int i ;
   double summa = 0.0;
-  for(i=0 ; i<n ; i++){
-    summa = summa + matrix[i][i];}
-
+  for(i=0 ; i<n ; i++)
+    summa+=matrix[i][i];
   return summa;
 }
